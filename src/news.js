@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Link} from "react-router-dom";
 export default class News extends React.Component {
   constructor(props) {
     super(props);
@@ -10,42 +10,36 @@ export default class News extends React.Component {
   }
 
   componentDidMount() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const API_KEY = "eb7cdbece13a489893dd93484dcc0a7c";
     const url =
-      "https://dnnews.in/wp-json/wp/v2/posts?_fields=author,id,excerpt,title,link,jetpack_featured_media_url";
-    const url1 = "https://reqres.in/api/users?page=2";
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=" + API_KEY;
     const requestOption = {
       method: "GET",
-      //   credentials: "include",
-      //   mode: "no-cors",
-      mode: "cors",
       header: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
         Origin: "http://localhost:3000",
       },
     };
 
-    fetch(url1, requestOption)
+    fetch(url, requestOption)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        this.setState({ newsList: this.state.newsList.concat(data.data) });
+        this.setState({ newsList: this.state.newsList.concat(data.articles) });
       });
   }
   render() {
     return (
       <div>
         {this.state.newsList.map((item) => (
-          <div>
-            <h1>{item.id}</h1>
-            <img src={item.avatar} />
-            <p>
-              {item.first_name} {item.last_name}
-            </p>
-            <p>Email-Id : {item.email}</p>
+          <div className="news_card">
+            <h2>{item.title}</h2>
+            <p>{item.description}</p>
+            <img className="feature_image" src={item.urlToImage} />
+            {/* <button className="button" type="button"> <Link to="/signup" className="btn btn-primary">Sign up</Link></button> */}
+           
           </div>
         ))}
       </div>
