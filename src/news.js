@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import {Link} from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
+
+
 export default class News extends React.Component {
   constructor(props) {
     super(props);
@@ -38,8 +40,7 @@ export default class News extends React.Component {
             <h2>{item.title}</h2>
             <p>{item.description}</p>
             <img className="feature_image" src={item.urlToImage} />
-            {/* <button className="button" type="button"> <Link to="/signup" className="btn btn-primary">Sign up</Link></button> */}
-           
+            {/* <button className="button" type="button" onClick={()=> {<Redirect to="/login" />}}>Sign up</button> */}
           </div>
         ))}
       </div>
